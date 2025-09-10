@@ -266,7 +266,7 @@ Public Sub AddSeparator (Title As Object)
 	PrefItems.Add(CreatePrefItem(Title, TYPE_SEPARATOR, ""))
 End Sub
 
-Private Sub CreatePrefItem(Title As Object, ItemType As Int, Key As String) As B4XPrefItem
+Private Sub CreatePrefItem (Title As Object, ItemType As Int, Key As String) As B4XPrefItem
 	Dim pi As B4XPrefItem
 	pi.Initialize
 	pi.Title = Title

@@ -14,7 +14,10 @@ Version=9.85
 Sub Class_Globals
 	Private Root As B4XView
 	Private xui As XUI
+	Private Label1 As B4XView
+	Private B4XSwitch1 As B4XSwitch
 	Private PrefDialog As PreferencesDialog
+	Private Data As Map
 End Sub
 
 Public Sub Initialize
@@ -30,6 +33,9 @@ Private Sub B4XPage_Created (Root1 As B4XView)
 	PrefDialog.Title = "Demo"
 	PrefDialog.AddDateItem("Date", "Date")
 	PrefDialog.AddBooleanItem("Active", "Active")
+	DateTime.DateFormat = "dd/MM/yyyy"
+	Data = CreateMap("Active": True)
+	Label1.Text = DateTime.Date(DateTime.Now)
 End Sub
 
 Private Sub B4XPage_Resize(Width As Int, Height As Int)
@@ -37,7 +43,13 @@ Private Sub B4XPage_Resize(Width As Int, Height As Int)
 End Sub
 
 Private Sub Button1_Click
-	Dim SenderFilter As Object = PrefDialog.ShowDialog2(CreateMap(), "OK", "CANCEL")
+	Dim SenderFilter As Object = PrefDialog.ShowDialog2(Data, "OK", "CANCEL")
 	Wait For (SenderFilter) Complete (Result As Int)
 	Log(Result)
+	Label1.Text = DateTime.Date(Data.GetDefault("Date", DateTime.Now))
+	B4XSwitch1.Value = Data.Get("Active")
+End Sub
+
+Private Sub B4XSwitch1_ValueChanged (Value As Boolean)
+	Data.Put("Active", Value)
 End Sub
